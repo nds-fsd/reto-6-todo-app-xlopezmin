@@ -2,24 +2,19 @@ import { useEffect, useState } from "react";
 import styles from "./TaskAdd.module.css";
 
 
-function TaskAdd() {
+function TaskAdd(props) {
     const [title, setTitle] = useState("");
-    // const [date, setDate] = useState("");
-    // const [state, setState] = useState(false);
 
     const handlerTitleOnChange = (event) => {
         setTitle(event.target.value);
-        console.log("handlerTitleOnChange().title", title);
     }
 
     const handlerButtonOnClick = async () => {
         try{
-            console.log("handlerButtonOnClick().title",title);
-
             const url = "http://localhost:3000/todo";
             const newTask = {
                 text: title,
-                fecha: "2023-11-17",
+                fecha: "2023-11-21",
                 done: false
             };
             
@@ -28,12 +23,12 @@ function TaskAdd() {
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(newTask)
             });
-            console.log("response:", response);
-
-            if(response.ok){
+            
+            if(response.status === 201){
                 setTitle("");
+                props.reloadPage(true);                
             } else {
-                console.log("response.ok:", response.ok);
+                console.log(response.statusText);
             }
 
         } catch(error) {
@@ -42,12 +37,13 @@ function TaskAdd() {
     }
     
     return (
-        <>
+        <div className={styles.root}>
+            <div>Agregar nuevas tareas:</div>
             <div>
                 <input type="text" value={title} onChange={handlerTitleOnChange} placeholder="Intruduce descripción de la tarea"></input>
                 <button onClick={handlerButtonOnClick}>Agregar</button>
             </div>
-        </>
+        </div>
     )
 }
 

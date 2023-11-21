@@ -10,25 +10,24 @@ import imageFavorite from "../../../assets/img/estrella.svg";
 import imageDelete from "../../../assets/img/basura.svg";
 
 
-function TaskList () {
+function TaskList (props) {
     const [tareas, setTareas] = useState(null);
+    const reload = props.reload;
 
     useEffect(() => {
-        console.log("useEffect");
+        console.log("TaskList.useEffect.reload:", reload);
         getTaskList();
-    }, []) ;
+    }, [reload]) ;
 
     const getTaskList = async () => {
         try {
             const url = "http://localhost:3000/todo";
             const response = await fetch(url);
-            console.log("getTaskList().response:", response);
         
-            if (response.ok){
+            if (response.status === 200){
                 const json = await response.json();
                 setTareas(json);
-                console.log("json:", json, "typeof", typeof(json));
-                console.log("taskList:", tareas);                
+          
             } else {
                 console.log("response.ok:", response.ok);    
             }
@@ -37,42 +36,20 @@ function TaskList () {
         }
     }
 
-    const handlerDeleteTaskOnClick = async(id) => {
-        id = 0;
-        try {
-            console.log("deleteTask():", id);
-            const url = "http://localhost:3000/todo/" + id;
-
-            const response = await fetch(url, {
-                method: "DELETE",
-                headers: {"Content-Type": "application/json"}
-            });
-
-            if (response.ok) {
-                console.log("deleteTask().response.ok:", response.ok);
-            } else {
-                console.log("deleteTask().response.ok:", response.ok);
-            }
-        } catch(error) {
-            console.log("deleteTask().id:", id);
-        }
-    }
-
     return (
         <>
-            <div>
-                <span>Título tarea 1</span>
-                <button key="0" onClick={handlerDeleteTaskOnClick}>
-                    <img key="0" className={styles.images} src={imageDelete} alt="Eliminar tarea"/>
-                </button>
-            </div>
-            <div>
-                <span>Título tarea 2</span>
-                <button key="1" onClick={handlerDeleteTaskOnClick}>
-                    <img key="1" className={styles.images} src={imageDelete} alt="Eliminar tarea"/>
-                </button>
-            </div>
-            
+            { tareas && tareas.map( (element) => {
+                    return (
+                        <div className={styles.task} key={element.id}>
+                            <div>{element.id}</div>
+                            <div>{element.text}</div>
+                            <div>{element.fecha}</div>
+                            <div>{element.done}</div>
+                        </div>
+                    )
+                } )
+            }
+
         </>
     )
 }
