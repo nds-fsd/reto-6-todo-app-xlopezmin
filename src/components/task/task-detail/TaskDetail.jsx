@@ -5,12 +5,21 @@ import imageRemove from "../../../assets/img/basura.svg";
 
 function TaskDetail(props) {
     const [task, setTask] = useState({});
+    const [text, setText] = useState("");
+    const [isUpdate, setIsUpdate] = useState(false);
     const [loading, setLoading] = useState(false);
     const taskId = props.taskId;
 
     useEffect(() => {
-        getId(taskId);        
+        getId();        
     }, [taskId]);
+
+    useEffect(() => {
+        if (isUpdate) {
+            update();
+            setIsUpdate(false);
+        }
+    }, [isUpdate]);
 
     const getId = async () => {
         try {
@@ -20,7 +29,8 @@ function TaskDetail(props) {
 
             if(response.status === 200) {
                 const json = await response.json();
-                setTask(json);                
+                setTask(json);
+                setText(json.text);
             } else {
                 console.log("TaskDetail.response.status:", response.status);
             }
@@ -30,15 +40,48 @@ function TaskDetail(props) {
         setLoading(false);
     }
 
+    const update = async () => {
+        try {
+            const url = "http://localhost:3000/todo/" + taskId;
+
+            console.log("handlerButtonUpdateOnClick.response.url:", url);
+            console.log("handlerButtonUpdateOnClick.response.json:", JSON.stringify(task));
+            const response = await fetch(url, {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(task)
+            });
+            
+            if(response.status === 200){
+                console.log("TaskDetail.response.status:", response.status, response.statusText);
+            } else {
+                console.log("TaskDetail.response.status:", response.status, response.statusText);
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    const handlerTaskOnChange = (event) => {
+        setText(event.target.value);
+    }
+
+    const handlerButtonUpdateOnClick = () => {
+        setIsUpdate(!isUpdate);
+        task.text = text;
+        setTask(task);
+    }
+
     if (loading) return <h2>🌀 Loading...</h2>;
     if (!task) return <h2>Tarea no encontrada</h2>;
 
     return (
         <>
-            <input type="text" value={task.text} />
+            <input type="text" value={text} onChange={handlerTaskOnChange} on/>
             <p>Fecha: {task.fecha}</p>
             <p>Estado: {String(task.done)}</p>
             <img className={styles.images} src={imageRemove} alt="Eliminar tarea" />
+            <button onClick={handlerButtonUpdateOnClick}>Guardar</button>
         </>
     )
 }
