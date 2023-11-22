@@ -32,7 +32,7 @@ function TaskDetail(props) {
                 setTask(json);
                 setText(json.text);
             } else {
-                console.log("TaskDetail.response.status:", response.status);
+                console.log(await response.json());
             }
         } catch(error) {
             console.log(error);
@@ -44,19 +44,14 @@ function TaskDetail(props) {
         try {
             const url = "http://localhost:3000/todo/" + taskId;
 
-            console.log("handlerButtonUpdateOnClick.response.url:", url);
-            console.log("handlerButtonUpdateOnClick.response.json:", JSON.stringify(task));
             const response = await fetch(url, {
                 method: "PATCH",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(task)
             });
             
-            if(response.status === 200){
-                console.log("TaskDetail.response.status:", response.status, response.statusText);
-            } else {
-                console.log("TaskDetail.response.status:", response.status, response.statusText);
-            }
+            if(!response.status === 200) console.log(await response.json());
+
         } catch(error) {
             console.log(error);
         }
