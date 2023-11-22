@@ -11,8 +11,9 @@ import imageDelete from "../../../assets/img/basura.svg";
 
 
 function TaskList (props) {
-    const [tareas, setTareas] = useState(null);
+    const [tareas, setTareas] = useState([]);
     const reload = props.reload;
+    const selectTask = props.selectTask;
 
     useEffect(() => {
         console.log("TaskList.useEffect.reload:", reload);
@@ -36,15 +37,19 @@ function TaskList (props) {
         }
     }
 
+    const taskOnClick = (item) => {
+        selectTask(item.id);
+    }
+
     return (
         <>
             { tareas && tareas.map( (element) => {
                     return (
-                        <div className={styles.task} key={element.id}>
-                            <div>{element.id}</div>
-                            <div>{element.text}</div>
-                            <div>{element.fecha}</div>
-                            <div>{element.done}</div>
+                        <div className={styles.task} key={element.id} item={element} onClick={() => taskOnClick(element)}>
+                            <div className={styles.taskfield}>{element.id}</div>
+                            <div className={styles.taskfield}>{element.text}</div>
+                            <div className={styles.taskfield}>{element.fecha}</div>
+                            <div className={styles.taskfield}>{element.done}</div>
                         </div>
                     )
                 } )

@@ -6,9 +6,15 @@ import './App.css'
 
 function App() {
   const [reload, setReload] = useState(false);
+  const [taskId, setTaskId] = useState(null);
 
   const reloadPage = () => {
     setReload(!reload);
+  }
+
+  const selectTask = (id) => {
+    console.log("selectTask(id):", id);
+    setTaskId(id);
   }
 
   return (
@@ -19,11 +25,11 @@ function App() {
       </div>
       <div>
         <p>Lista de tareas</p>
-        <TaskList reload={reload}/>
+        <TaskList reload={reload} selectTask={selectTask} />
       </div>
       <div>
         <p>Detalle tarea</p>
-        <TaskDetail id = "1"/>
+        <TaskDetail taskId={taskId}/>
       </div>      
     </div>
   );
