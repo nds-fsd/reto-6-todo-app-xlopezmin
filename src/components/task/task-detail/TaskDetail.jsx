@@ -4,15 +4,15 @@ import imageRemove from "../../../assets/img/basura.svg";
 
 
 function TaskDetail(props) {
-    const [task, setTask] = useState({});
+    const [task, setTask] = useState(null);
     const [text, setText] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
     const [loading, setLoading] = useState(false);
-    const taskId = props.taskId;
+    let taskId = props.taskId;
     const setReloadList = props.setReload;
 
     useEffect(() => {
-        getId();        
+        if (taskId) getId();
     }, [taskId]);
 
     useEffect(() => {
@@ -59,6 +59,21 @@ function TaskDetail(props) {
         }
     }
 
+    const remove = async () => {
+        try {
+            const url = "http://localhost:3000/todo/" + taskId;
+
+            const response = await fetch(url, {
+                method: "DELETE"
+            });
+            
+            if(!response.status === 200) console.log(await response.json());
+
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     const handlerTaskOnChange = (event) => {
         setText(event.target.value);
     }
@@ -69,16 +84,21 @@ function TaskDetail(props) {
         setTask(task);
     }
 
-    if (loading) return <h2>🌀 Loading...</h2>;
-    if (!task) return <h2>Tarea no encontrada</h2>;
+    const handlerButtonRemoveOnClick = () => {
+        remove();
+        setReloadList(new Date());
+        setTask(null);
+    }
 
+    if (loading) return <h2>🌀 Loading...</h2>;
+    
     return (
         <>
-            <input type="text" value={text} onChange={handlerTaskOnChange} on/>
-            <p>Fecha: {task.fecha}</p>
-            <p>Estado: {String(task.done)}</p>
-            <img className={styles.images} src={imageRemove} alt="Eliminar tarea" />
-            <button onClick={handlerButtonUpdateOnClick}>Guardar</button>
+            {task && (<input type="text" value={text} onChange={handlerTaskOnChange} />)}
+            {task && (<p>Fecha: {task.fecha}</p>)}
+            {task && (<p>Estado: {String(task.done)}</p>)}
+            {task && (<button onClick={handlerButtonRemoveOnClick}><img className={styles.images} src={imageRemove} alt="Eliminar tarea" /></button>)}
+            {task && (<button onClick={handlerButtonUpdateOnClick}>Guardar</button>)}
         </>
     )
 }

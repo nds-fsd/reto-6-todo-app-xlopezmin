@@ -23,11 +23,9 @@ function App() {
         <TaskAdd reloadPage={reloadPage}/>
       </div>
       <div>
-        <p>Lista de tareas</p>
         <TaskList reload={reload} selectTask={selectTask} />
       </div>
       <div>
-        <p>Detalle tarea</p>
         <TaskDetail taskId={taskId} setReload={setReload}/>
       </div>      
     </div>
