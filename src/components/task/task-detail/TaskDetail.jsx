@@ -5,6 +5,7 @@ import imageRemove from "../../../assets/img/basura.svg";
 
 function TaskDetail(props) {
     const [task, setTask] = useState(null);
+    const [complete, setComplete] = useState(false);
     const [text, setText] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -32,6 +33,7 @@ function TaskDetail(props) {
             if(response.status === 200) {
                 const json = await response.json();
                 setTask(json);
+                setComplete(json.done);
                 setText(json.text);
             } else {
                 console.log(await response.json());
@@ -81,6 +83,7 @@ function TaskDetail(props) {
     const handlerButtonUpdateOnClick = () => {
         setIsUpdate(!isUpdate);
         task.text = text;
+        task.done = complete;
         setTask(task);
     }
 
@@ -90,13 +93,20 @@ function TaskDetail(props) {
         setTask(null);
     }
 
+    const handlerCheckboxDoneOnChange = () => {
+        setComplete(!complete);
+    }
+
     if (loading) return <h2>🌀 Loading...</h2>;
     
     return (
         <>
+            <div>
+                {task && (<input type="checkbox" checked={complete} onChange={handlerCheckboxDoneOnChange} />)}
+                {task && (<span>{complete?"Completado":"Pendiente"}</span>)}
+            </div>            
             {task && (<input type="text" value={text} onChange={handlerTaskOnChange} />)}
             {task && (<p>Fecha: {task.fecha}</p>)}
-            {task && (<p>Estado: {String(task.done)}</p>)}
             {task && (<button onClick={handlerButtonRemoveOnClick}><img className={styles.images} src={imageRemove} alt="Eliminar tarea" /></button>)}
             {task && (<button onClick={handlerButtonUpdateOnClick}>Guardar</button>)}
         </>

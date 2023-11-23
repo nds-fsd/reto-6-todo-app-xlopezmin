@@ -46,7 +46,7 @@ function TaskList (props) {
             { tareas && tareas.map( (element) => {
                     return (
                         <div className={styles.task} key={element.id} item={element} onClick={() => taskOnClick(element)}>
-                            <div className={styles.taskfield}>{element.id}</div>
+                            <div className={styles.taskfield}><input type="checkbox" checked={element.done} readOnly></input></div>
                             <div className={styles.taskfield}>{element.text}</div>
                             <div className={styles.taskfield}>{element.fecha}</div>
                             <div className={styles.taskfield}>{element.done}</div>
