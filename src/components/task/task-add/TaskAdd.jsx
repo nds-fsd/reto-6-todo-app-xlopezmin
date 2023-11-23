@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./TaskAdd.module.css";
+import imageAdd from "../../../assets/img/agregar.svg"
 
 
 function TaskAdd(props) {
@@ -38,10 +39,13 @@ function TaskAdd(props) {
     
     return (
         <div className={styles.root}>
-            <div>Agregar nuevas tareas:</div>
             <div>
-                <input type="text" value={title} onChange={handlerTitleOnChange} placeholder="Intruduce descripción de la tarea"></input>
-                <button onClick={handlerButtonOnClick}>Agregar</button>
+                <input className={styles.text} type="text" value={title} onChange={handlerTitleOnChange} placeholder="Agregar una tarea"></input>
+            </div>
+            <div>
+                <button className={styles.button} onClick={handlerButtonOnClick}>
+                    <img className={styles.image16} src={imageAdd} alt="Agregar tarea" />
+                </button>
             </div>
         </div>
     )

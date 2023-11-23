@@ -1,0 +1,22 @@
+.root {
+    background-color: #FAF9F8;
+    padding-left: 30px;
+    display: flex;
+    padding-bottom: 30px;
+}
+
+.text {
+    height: 27px;
+    width: 300px;
+}
+
+.button {
+    padding: 0;
+    height: 32px;
+    width: 32px;
+}
+
+.image16 {
+    height: 16px;
+    width: 16px;
+}

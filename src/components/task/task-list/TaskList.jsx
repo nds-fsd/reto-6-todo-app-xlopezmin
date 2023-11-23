@@ -42,14 +42,14 @@ function TaskList (props) {
     }
 
     return (
-        <>
+        <div className={styles.root}>
             { tareas && tareas.map( (element) => {
                     return (
-                        <Link to={"/todos/"+element.id} key={element.id}>
+                        <Link className={styles.link} to={"/todos/"+element.id} key={element.id}>
                             <div className={styles.task}  item={element} onClick={() => taskOnClick(element)}>
-                                <div className={styles.taskfield}><input type="checkbox" checked={element.done} readOnly></input></div>
-                                <div className={styles.taskfield}>{element.text}</div>
-                                <div className={styles.taskfield}><input type="date" value={element.fecha} readOnly/></div>
+                                <div className={styles.checkbox}><input type="checkbox" checked={element.done} readOnly></input></div>
+                                <div className={styles.text}>{element.text}</div>
+                                <div className={styles.taskfield}>{element.fecha}</div>
                             </div>
                         </Link>
                     )
@@ -57,7 +57,7 @@ function TaskList (props) {
             }
             { tareas && (<div><Outlet /></div>)}
             
-        </>
+        </div>
     )
 }
 

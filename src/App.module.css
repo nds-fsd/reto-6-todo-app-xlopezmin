@@ -1,0 +1,57 @@
+.head {
+    background-color: #2564CF;
+    height: 45px;
+}
+
+.components {
+    background-color: #FAF9F8;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+}
+
+.nav {
+    background-color: #FFFFFF;
+    width: 200px;
+}
+
+.lu {
+    margin-top: 20px;
+    padding: 10px;
+    list-style-type: none;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.li:hover {
+    background-color: lightgray;
+    color: #2564CF;
+}
+
+
+.subhead {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.image16 {
+    padding: 0px 5px;
+    height: 16px;
+    width: 16px;
+}
+
+.image32 {
+    padding: 0px 10px;
+    height: 32px;
+    width: 32px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: row;
+}
+
