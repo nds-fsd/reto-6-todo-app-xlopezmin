@@ -28,7 +28,7 @@ function TaskDetail(props) {
     const getId = async () => {
         try {
             setLoading(true);
-            const url = "http://localhost:3000/todo/" + taskId;
+            const url = "http://localhost:3000/todos/" + taskId;
             const response = await fetch(url);
 
             if(response.status === 200) {
@@ -48,7 +48,7 @@ function TaskDetail(props) {
 
     const update = async () => {
         try {
-            const url = "http://localhost:3000/todo/" + taskId;
+            const url = "http://localhost:3000/todos/" + taskId;
 
             const response = await fetch(url, {
                 method: "PATCH",
@@ -65,7 +65,7 @@ function TaskDetail(props) {
 
     const remove = async () => {
         try {
-            const url = "http://localhost:3000/todo/" + taskId;
+            const url = "http://localhost:3000/todos/" + taskId;
 
             const response = await fetch(url, {
                 method: "DELETE"
@@ -113,7 +113,7 @@ function TaskDetail(props) {
                 {task && (<span>{complete?"Completado":"Pendiente"}</span>)}
             </div>
             <div>
-                {task && (<input type="text" value={text} onChange={handlerCheckboxDoneOnChange} />)}   
+                {task && (<input type="text" value={text} onChange={handlerTaskOnChange} />)}   
             </div>
             <div>
                 {task && (<input type="date" value={dateExpired} onChange={handlerDateOnChange} />)}

@@ -11,7 +11,7 @@ function TaskAdd(props) {
 
     const handlerButtonOnClick = async () => {
         try{
-            const url = "http://localhost:3000/todo";
+            const url = "http://localhost:3000/todos";
             const newTask = {
                 text: title,
                 fecha: "2023-11-21",
@@ -28,7 +28,7 @@ function TaskAdd(props) {
                 setTitle("");
                 props.reloadPage(true);                
             } else {
-                console.log(response.statusText);
+                console.log(response.body);
             }
 
         } catch(error) {
