@@ -16,7 +16,6 @@ function TaskList (props) {
     const selectTask = props.selectTask;
 
     useEffect(() => {
-        console.log("TaskList.useEffect.reload:", reload);
         getTaskList();
     }, [reload]) ;
 
@@ -27,10 +26,9 @@ function TaskList (props) {
         
             if (response.status === 200){
                 const json = await response.json();
-                setTareas(json);
-          
+                setTareas(json);          
             } else {
-                console.log("response.ok:", response.ok);    
+                console.log(await response.json());
             }
         } catch (error) {
             console.log(error);
@@ -48,8 +46,7 @@ function TaskList (props) {
                         <div className={styles.task} key={element.id} item={element} onClick={() => taskOnClick(element)}>
                             <div className={styles.taskfield}><input type="checkbox" checked={element.done} readOnly></input></div>
                             <div className={styles.taskfield}>{element.text}</div>
-                            <div className={styles.taskfield}>{element.fecha}</div>
-                            <div className={styles.taskfield}>{element.done}</div>
+                            <div className={styles.taskfield}><input type="date" value={element.fecha} readOnly/></div>
                         </div>
                     )
                 } )

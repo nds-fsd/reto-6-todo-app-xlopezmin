@@ -7,6 +7,7 @@ function TaskDetail(props) {
     const [task, setTask] = useState(null);
     const [complete, setComplete] = useState(false);
     const [text, setText] = useState("");
+    const [dateExpired, setDateExpired] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
     const [loading, setLoading] = useState(false);
     let taskId = props.taskId;
@@ -35,6 +36,7 @@ function TaskDetail(props) {
                 setTask(json);
                 setComplete(json.done);
                 setText(json.text);
+                setDateExpired(json.fecha);
             } else {
                 console.log(await response.json());
             }
@@ -84,6 +86,7 @@ function TaskDetail(props) {
         setIsUpdate(!isUpdate);
         task.text = text;
         task.done = complete;
+        task.fecha = dateExpired;
         setTask(task);
     }
 
@@ -97,6 +100,10 @@ function TaskDetail(props) {
         setComplete(!complete);
     }
 
+    const handlerDateOnChange = (event) => {
+        setDateExpired(event.target.value)
+    }
+
     if (loading) return <h2>🌀 Loading...</h2>;
     
     return (
@@ -104,11 +111,20 @@ function TaskDetail(props) {
             <div>
                 {task && (<input type="checkbox" checked={complete} onChange={handlerCheckboxDoneOnChange} />)}
                 {task && (<span>{complete?"Completado":"Pendiente"}</span>)}
-            </div>            
-            {task && (<input type="text" value={text} onChange={handlerTaskOnChange} />)}
-            {task && (<p>Fecha: {task.fecha}</p>)}
-            {task && (<button onClick={handlerButtonRemoveOnClick}><img className={styles.images} src={imageRemove} alt="Eliminar tarea" /></button>)}
-            {task && (<button onClick={handlerButtonUpdateOnClick}>Guardar</button>)}
+            </div>
+            <div>
+                {task && (<input type="text" value={text} onChange={handlerCheckboxDoneOnChange} />)}   
+            </div>
+            <div>
+                {task && (<input type="date" value={dateExpired} onChange={handlerDateOnChange} />)}
+            </div>
+            <div>
+                {task && (<button onClick={handlerButtonRemoveOnClick}><img className={styles.images} src={imageRemove} alt="Eliminar tarea" /></button>)}
+                {task && (<button onClick={handlerButtonUpdateOnClick}>Guardar</button>)}
+            </div>
+            <div>
+                
+            </div>
         </>
     )
 }
