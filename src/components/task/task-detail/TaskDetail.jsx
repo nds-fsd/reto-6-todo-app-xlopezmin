@@ -9,6 +9,7 @@ function TaskDetail(props) {
     const [isUpdate, setIsUpdate] = useState(false);
     const [loading, setLoading] = useState(false);
     const taskId = props.taskId;
+    const setReloadList = props.setReload;
 
     useEffect(() => {
         getId();        
@@ -18,6 +19,7 @@ function TaskDetail(props) {
         if (isUpdate) {
             update();
             setIsUpdate(false);
+            setReloadList(new Date());
         }
     }, [isUpdate]);
 

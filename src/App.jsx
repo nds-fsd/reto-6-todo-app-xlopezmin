@@ -13,7 +13,6 @@ function App() {
   }
 
   const selectTask = (id) => {
-    console.log("selectTask(id):", id);
     setTaskId(id);
   }
 
@@ -29,7 +28,7 @@ function App() {
       </div>
       <div>
         <p>Detalle tarea</p>
-        <TaskDetail taskId={taskId}/>
+        <TaskDetail taskId={taskId} setReload={setReload}/>
       </div>      
     </div>
   );
