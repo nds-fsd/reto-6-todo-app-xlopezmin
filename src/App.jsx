@@ -7,7 +7,6 @@ import styles from './App.module.css';
 import imageTasks from './assets/img/hogar.svg'
 import imagePending from './assets/img/cuadrado.svg'
 import imageComplete from './assets/img/angulo-cuadrado-abajo.svg'
-// import './App.css'
 
 function App() {
   const [reload, setReload] = useState(false);

@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import styles from "./TaskList.module.css";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 function TaskList (props) {
     const [tareas, setTareas] = useState([]);
     const reload = props.reload;
     const selectTask = props.selectTask;
+    const location = useLocation();
+    const [queryParams, setQueryParams] = useState("");
+    
+    useEffect(() => {
+        setQueryParams(location.search);
+    });
 
     useEffect(() => {
         getTaskList();
-    }, [reload]) ;
+    }, [reload, queryParams]) ;
 
     const getTaskList = async () => {
         try {
-            const url = "http://localhost:3000/todos";
+            const url = "http://localhost:3000/todos" + location.search;
             const response = await fetch(url);
         
             if (response.status === 200){
