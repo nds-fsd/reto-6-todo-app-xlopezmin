@@ -13,9 +13,10 @@ function TaskAdd(props) {
     const handlerButtonOnClick = async () => {
         try{
             const url = "http://localhost:3000/todos";
+            const date = (new Date().getFullYear()) + "-" + (new Date().getMonth()+1) + "-" + (new Date().getDate());
             const newTask = {
                 text: title,
-                fecha: "2023-11-21",
+                fecha: date,
                 done: false
             };
             
