@@ -26,6 +26,10 @@
     text-decoration: none;
 }
 
+.li {
+    height: 32px;
+}
+
 .li:hover {
     background-color: lightgray;
     color: #2564CF;

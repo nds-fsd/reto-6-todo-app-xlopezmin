@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./TaskDetail.module.css";
 import imageRemove from "../../../assets/img/basura.svg";
+import imageSave from "../../../assets/img/disco.svg";
 
 
 function TaskDetail(props) {
@@ -107,25 +109,28 @@ function TaskDetail(props) {
     if (loading) return <h2>🌀 Loading...</h2>;
     
     return (
-        <>
-            <div>
+        <div className={styles.root}>
+            <div className={styles.fieldbox}>
                 {task && (<input type="checkbox" checked={complete} onChange={handlerCheckboxDoneOnChange} />)}
                 {task && (<span>{complete?"Completado":"Pendiente"}</span>)}
             </div>
-            <div>
-                {task && (<input type="text" value={text} onChange={handlerTaskOnChange} />)}   
+            <div className={styles.fieldbox}>
+                {task && (<input className={styles.text} type="text" value={text} onChange={handlerTaskOnChange} />)}   
             </div>
-            <div>
-                {task && (<input type="date" value={dateExpired} onChange={handlerDateOnChange} />)}
+            <div className={styles.datebox}>
+                <div>{task && (<input className={styles.date} type="date" value={dateExpired} onChange={handlerDateOnChange} />)}</div>
+                <div>Fecha de vencimiento</div>
             </div>
-            <div>
-                {task && (<button onClick={handlerButtonRemoveOnClick}><img className={styles.images} src={imageRemove} alt="Eliminar tarea" /></button>)}
-                {task && (<button onClick={handlerButtonUpdateOnClick}>Guardar</button>)}
+            <div className={styles.fieldbox}>
+                {task && (<button className={styles.button} onClick={handlerButtonUpdateOnClick}><img className={styles.imagebutton} src={imageSave} alt="Guardar cambios tarea" />Guardar</button>)}
+                <Link to="/todos">
+                    {task && (<button className={styles.button} onClick={handlerButtonRemoveOnClick}><img className={styles.imagebutton} src={imageRemove} alt="Eliminar tarea" />Eliminar</button>)}
+                </Link>
             </div>
             <div>
                 
             </div>
-        </>
+        </div>
     )
 }
 

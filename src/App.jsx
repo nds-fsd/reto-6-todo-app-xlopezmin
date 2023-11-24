@@ -5,6 +5,8 @@ import TaskDetail from './components/task/task-detail/TaskDetail';
 import { Routes, Route, Link } from "react-router-dom";
 import styles from './App.module.css';
 import imageTasks from './assets/img/hogar.svg'
+import imagePending from './assets/img/cuadrado.svg'
+import imageComplete from './assets/img/angulo-cuadrado-abajo.svg'
 // import './App.css'
 
 function App() {
@@ -31,11 +33,11 @@ function App() {
               <Link className={styles.link} to="/todos">Tareas</Link>
             </li>
             <li className={styles.li}>
-            <img className={styles.image16} src={imageTasks} alt="Tareas" />
+            <img className={styles.image16} src={imagePending} alt="Tareas" />
               <Link className={styles.link} to="/todos?done=false">Tareas pendientes</Link>
             </li>
             <li className={styles.li}>
-              <img className={styles.image16} src={imageTasks} alt="Tareas" />
+              <img className={styles.image16} src={imageComplete} alt="Tareas" />
               <Link className={styles.link} to="/todos?done=true">Tareas completadas</Link>
             </li>
           </ul>

@@ -2,8 +2,9 @@
     background-color: #FAF9F8;
     padding-left: 30px;
     padding-bottom: 30px;
+    display: flex;
+    flex-direction: row;
 }
-
 
 .task {
     display: flex;
@@ -44,8 +45,6 @@
 }
 
 .details {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    margin-left: 30px;
 }
 
