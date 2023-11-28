@@ -1,0 +1,49 @@
+.root {
+    background-color: #FAF9F8;
+}
+
+.fieldbox {
+    background-color: #FFFFFF;
+    height: 40px;
+    padding: 10px 10px 0px 10px;
+    margin-bottom: 5px;
+}
+
+.text {
+    border: none;
+    font-size: 16px;
+    width: 97.5%;
+}
+
+.datebox {
+    display: flex;
+    flex-direction: row;
+    background-color: #FFFFFF;
+    height: 40px;
+    padding: 10px 10px 0px 10px; 
+    margin-bottom: 5px;
+}
+
+.date {
+    border: none;
+    font-size: 16px;
+    padding-right: 15px;
+}
+
+.images16 {
+    height: 16px;
+    width: 16px;
+    padding: 5px;
+}
+
+.button {
+    padding: 5px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.imagebutton {
+    padding-right: 5px;
+    height: 16px;
+    width: 16px;
+}
